@@ -9,11 +9,11 @@
 
 function onScriptLoad() {
     
-    onMessagingScriptLoad()
+  onMessagingScriptLoad()
     
-    onDebugScriptLoad()
+  onDebugScriptLoad()
 
-    return 1;
+  return 1;
 }
  
 
@@ -63,97 +63,85 @@ class Player_Progress {
 
     function Set_Radar(bool) {
         
-        if (bool == true ) 
-        {
-            Radar = true;
-            ::SetHUDItemEnabled( ::HUD_RADAR, Radar)
-        }
-        else {
-            Radar = false;
-            ::SetHUDItemEnabled( ::HUD_RADAR, Radar)
-        }
-        
+      if (bool == true ) {
+        Radar = true;
+        ::SetHUDItemEnabled( ::HUD_RADAR, Radar)
+      }
+      else {
+        Radar = false;
+        ::SetHUDItemEnabled( ::HUD_RADAR, Radar)
+      }
     }
-
+     
     function Set_Armour(bool) {
         
-        if (bool == true ) 
-        {
-            Armour = true;
-            ::SetHUDItemEnabled( ::HUD_ARMOUR, Armour)
-        }
-        else {
-            Armour = false;
-            ::SetHUDItemEnabled( ::HUD_ARMOUR, Armour)
-        }
-        
+      if (bool == true ) {
+        Armour = true;
+        ::SetHUDItemEnabled( ::HUD_ARMOUR, Armour)
+      }
+      else {
+        Armour = false;
+        ::SetHUDItemEnabled( ::HUD_ARMOUR, Armour)
+      }  
     }
 
     function Set_Health(bool) {
-        
-        if (bool == true ) 
-        {
-            Health = true;
-            ::SetHUDItemEnabled( ::HUD_HEALTH, Health)
-        }
-        else {
-            Health = false;
-            ::SetHUDItemEnabled( ::HUD_HEALTH, Health)
-        }
-        
+      if (bool == true ) {
+        Health = true;
+        ::SetHUDItemEnabled( ::HUD_HEALTH, Health)
+      }
+      else {
+        Health = false;
+        ::SetHUDItemEnabled( ::HUD_HEALTH, Health)
+      }  
     }
     
     function Set_Money(bool) {
-        
-        if (bool == true ) 
-        {
-            Money = true;
-            ::SetHUDItemEnabled( ::HUD_MONEY, Money)
-        }
-        else {
-            Money = false;
-            ::SetHUDItemEnabled( ::HUD_MONEY, Money)
-        }
-        
+      
+      if (bool == true ) {
+        Money = true;
+        ::SetHUDItemEnabled( ::HUD_MONEY, Money)
+      }
+      else {
+        Money = false;
+        ::SetHUDItemEnabled( ::HUD_MONEY, Money)
+      }  
     }
+     
     function Set_Wanted(bool) {
         
-        if (bool == true ) 
-        {
-            Wanted = true;
-            ::SetHUDItemEnabled( ::HUD_WANTED, Wanted)
-        }
-        else {
-            Wanted = false;
-            ::SetHUDItemEnabled( ::HUD_WANTED, Wanted)
-        }
-        
+      if (bool == true ) {
+        Wanted = true;
+        ::SetHUDItemEnabled( ::HUD_WANTED, Wanted)
+      }
+      else {
+        Wanted = false;
+        ::SetHUDItemEnabled( ::HUD_WANTED, Wanted)
+      }  
     }
+     
     function Set_Weapon(bool) {
         
-        if (bool == true ) 
-        {
-            Weapon = true;
-            ::SetHUDItemEnabled( ::HUD_WEAPON, Weapon)
-        }
-        else {
-            Weapon = false;
-            ::SetHUDItemEnabled( ::HUD_WEAPON, Weapon)
-        }
-        
+      if (bool == true ) {
+        Weapon = true;
+        ::SetHUDItemEnabled( ::HUD_WEAPON, Weapon)
+      }
+      else {
+        Weapon = false;
+        ::SetHUDItemEnabled( ::HUD_WEAPON, Weapon)
+      }  
     }
+     
     function Set_Clock(bool) {
         
-        if (bool == true ) 
-        {
-            Clock = true;
-            ::SetHUDItemEnabled( ::HUD_CLOCK, Clock)
-        }
-        else {
-            Clock = false;
-            ::SetHUDItemEnabled( ::HUD_CLOCK, Clock)
-        }
-        
+      if (bool == true ) {
+        Clock = true;
+        ::SetHUDItemEnabled( ::HUD_CLOCK, Clock)
+      }
+      else {
+        Clock = false;
+        ::SetHUDItemEnabled( ::HUD_CLOCK, Clock)
+      }  
     }
 }
 
@@ -190,13 +178,13 @@ function Timed_Flash()
 }
 
 function Flash_Radar() {
-local con = HUD_RADAR_BOOL  == true;
-Player_Progress().Set_Radar(con ? false : true)
-        HUD_RADAR_BOOL = con ? false : true
-        PlayFrontEndSound(con ? 150 : 149);
-        return true;
-  return true;
+  local con = HUD_RADAR_BOOL  == true;
+  Player_Progress().Set_Radar(con ? false : true)
+  HUD_RADAR_BOOL = con ? false : true
+  PlayFrontEndSound(con ? 150 : 149);
+   return true;
 }
+
 /* Radar flash */
 
 //------------------------------------------------------------------------------------------------------
