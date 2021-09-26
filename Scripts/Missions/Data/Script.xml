@@ -1,0 +1,19 @@
+<script file="client.nut" client="1"/>
+
+<sprite file="Fist.png"/>
+<sprite file="Baseball Bat.png"/>
+<sprite file="Colt 45.png"/>
+<sprite file="Uzi.png"/>
+<sprite file="Shotgun.png"/>
+<sprite file="Fire.png"/>
+<sprite file="Molotov Cocktail.png"/>
+<sprite file="AK 47.png"/>
+<sprite file="Bomb.png"/>
+
+<sprite file="Grenade.png"/>
+<sprite file="M16.png"/>
+<sprite file="Rocket Launcher.png"/>
+<sprite file="Sniper Rifle.png"/>
+
+<sprite file="Timer Box.png"/>
+<sprite file="Hud Bar Box.png"/>
