@@ -1,0 +1,58 @@
+/*
+Version One: Final
+Wrote by Motley
+
+
+What is wrong with this shit. I really do not understand why the rotation is backwards. 
+Is it just LU or what I mean damn why https://upload.wikimedia.org/wikipedia/commons/e/e9/Compass_rose.png
+
+It shouldn't be backwards. Anyway I implimented a fix to it in the scripts. 
+
+At the bottom of the page you will see some command. Put one vector on one side. And the next on the other. When you enter the command it will 
+point to this vector. It's doggy and there was no real time way to add with atan. So fuck it. 
+
+Since it's figured out I will try to do some more in depths
+
+I could add up to 18 angles if I want really..
+
+This is not the corrent way. This is not static data. I plan to do this the right way another day. Some issues with
+
+atan(x,y - atan(x,y)
+
+
+*/
+function PointToDirection(entity, Goto) {
+  
+  // Some array that gets each cord and sets the closest direction first, then second etc
+  local MyCompass = [ 0, 1, 2, 3, 4, 5, 6, 7 ];
+  local MyPoint = {};
+ 
+  MyPoint.rawset(MyCompass[0] = GetDistance(Goto, Vector(entity.Pos.x, entity.Pos.y+4, entity.Pos.z)), "North" );
+  MyPoint.rawset(MyCompass[1] = GetDistance(Goto, Vector(entity.Pos.x, entity.Pos.y-4, entity.Pos.z)), "South");
+  MyPoint.rawset(MyCompass[2] = GetDistance(Goto, Vector(entity.Pos.x+4, entity.Pos.y, entity.Pos.z)), "East" );
+  MyPoint.rawset(MyCompass[3] = GetDistance(Goto, Vector(entity.Pos.x-4, entity.Pos.y, entity.Pos.z)), "West");
+  
+  MyPoint.rawset(MyCompass[4] = GetDistance(Goto, Vector(entity.Pos.x+3, entity.Pos.y+3, entity.Pos.z)), "NorthEast");
+  MyPoint.rawset(MyCompass[5] = GetDistance(Goto, Vector(entity.Pos.x+3, entity.Pos.y-3, entity.Pos.z)), "SouthEast");
+  
+  MyPoint.rawset(MyCompass[6] = GetDistance(Goto, Vector(entity.Pos.x-3, entity.Pos.y+3, entity.Pos.z)), "NorthWest");
+  MyPoint.rawset(MyCompass[7] = GetDistance(Goto, Vector(entity.Pos.x-3, entity.Pos.y-3, entity.Pos.z)), "SouthWest");
+  
+  MyCompass.sort()
+  entity.Angle = GetAngle(MyPoint.rawget(MyCompass[0]))
+}
+
+function GetAngle(Point) {
+  if (Point == "North") return 0;
+  else if (Point == "West" ) return 90;
+  else if (Point == "South") return 180;
+  else if (Point == "East" )return 270;
+  else if (Point == "NorthWest" ) return 50;
+  else if (Point == "SouthEast" ) return 220;
+  else if (Point == "SouthWest" ) return 140;
+  else if (Point == "NorthEast" )return 310;
+}
+
+// Some Command
+ if ( szCommand == "one") PointToDirection(pPlayer, Vector(98.44, -954.50, 26.16))
+ if ( szCommand == "two") PointToDirection(pPlayer, Vector(101.06, -939.60, 26.01))
