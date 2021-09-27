@@ -61,6 +61,18 @@ class Player_Progress {
     Wanted = false;
     // Hud Related
 
+    //Custom Hud
+	Hud_Window = null;
+    
+	Hud_Health_Bar = null;
+	Hud_Armour_Bar = null;
+	Inventory_Button = null;
+	Hud_Bar_Box = null;
+	Health_Bar_Value = null;
+	Armour_Bar_Value = null;
+	Hud_Timer_Box = null;
+    //Custom Hud
+
     function Set_Radar(bool) {
         
       if (bool == true ) {
@@ -143,38 +155,77 @@ class Player_Progress {
         ::SetHUDItemEnabled( ::HUD_CLOCK, Clock)
       }  
     }
+	
+	function ShowCustomRadar(bool) {
+      if (bool == true ) {
+	    Hud_Health_Bar = GUIProgressBar(::VectorScreen( 100, 47 ), ::ScreenSize( 100, 15 ));
+        Hud_Armour_Bar = GUIProgressBar(::VectorScreen( 0, 47 ), ::ScreenSize( 100, 15 ));
+        Inventory_Button = GUIButton( ::VectorScreen( 60, 30 ), ::ScreenSize( 60, 0 ), "Inventory" );
+        Hud_Bar_Box = ::GUISprite("Hud Bar Box.png", ::VectorScreen( 0, 47 ));
+        Health_Bar_Value = ::GUILabel( ::VectorScreen( 140, 49 ), ::ScreenSize( 5, 5 ), FindLocalPlayer().Health.tostring() );
+        Armour_Bar_Value = ::GUILabel( ::VectorScreen( 40, 49 ), ::ScreenSize( 5, 5 ), FindLocalPlayer().Armour.tostring() );
+        Hud_Timer_Box = ::GUISprite("Timer Box.png", ::VectorScreen( 109, 420 ));
+        Hud_Health_Bar.MaxValue = 100;
+        Hud_Health_Bar.EndColour = Colour( 0, 255, 0 );
+        Hud_Health_Bar.StartColour = Colour( 250, 20, 20 );
+        Hud_Health_Bar.Alpha = 255;
+        Hud_Health_Bar.Value = 100;
+        Hud_Health_Bar.Thickness = 2;
+        Hud_Health_Bar.Visible = true;
+
+        Hud_Armour_Bar.MaxValue = 100;
+        Hud_Armour_Bar.EndColour = Colour(128, 128, 128);
+        Hud_Armour_Bar.StartColour = Colour(0, 0, 0);
+        Hud_Armour_Bar.Alpha = 255;
+        Hud_Armour_Bar.Value = 100;
+        Hud_Armour_Bar.Thickness = 2;
+        Hud_Armour_Bar.Visible = true;
+
+        Health_Bar_Value.TextColour = ::Colour( 255, 255, 255 );
+        Health_Bar_Value.FontSize = 8;    
+
+        Armour_Bar_Value .TextColour = ::Colour( 255, 255, 255 );
+        Armour_Bar_Value.FontSize = 8;
+
+        Hud_Timer_Box.Alpha = 220;
+	  }
+	  else {
+        Hud_Health_Bar.Visible = false;
+        Hud_Armour_Bar.Visible = false;
+        Inventory_Button.Visible = false;
+        Hud_Bar_Box.Visible = false;
+        Health_Bar_Value.Visible = false;
+        Armour_Bar_Value.Visible = false;
+        Hud_Timer_Box.Visible = false;
+      }
+    }
 }
 
 //----------------------------------------------------------
 
-function onDebugScriptLoad()
-{
-    print(GetWeaponName(0))
-    Player_Progress().Set_Radar(false)
-    Player_Progress().Set_Armour(false)
-    Player_Progress().Set_Health(false)
-    Player_Progress().Set_Money(false)
-    Player_Progress().Set_Wanted(false)
-    Player_Progress().Set_Weapon(false)
-    Player_Progress().Set_Clock(false)
+function onDebugScriptLoad() {
+  Player_Progress().Set_Radar(false);
+  Player_Progress().Set_Armour(false);
+  Player_Progress().Set_Health(false);
+  Player_Progress().Set_Money(false);
+  Player_Progress().Set_Wanted(false);
+  Player_Progress().Set_Weapon(false);
+  Player_Progress().Set_Clock(false);
 
-    Load_Mission_GUI()
-    Load_Gui_Weapon_Window() 
-    Load_Gui_Weapon_Sprites()
-    
-    return 1;
+  Load_Mission_GUI();
+  Load_Gui_Weapon_Window(); 
+  Load_Gui_Weapon_Sprites();
+   
+  return 1;
 }
 
 
 /* Radar flash */
 HUD_RADAR_BOOL <- true;
 
-function Timed_Flash() 
-{
-    Player_Progress().Set_Radar(true)
-    
-    NewTimer("Flash_Radar",200, 8);
-    
+function Timed_Flash() {
+  Player_Progress().Set_Radar(true)
+  NewTimer("Flash_Radar",200, 8); 
 }
 
 function Flash_Radar() {
@@ -182,7 +233,7 @@ function Flash_Radar() {
   Player_Progress().Set_Radar(con ? false : true)
   HUD_RADAR_BOOL = con ? false : true
   PlayFrontEndSound(con ? 150 : 149);
-   return true;
+  return true;
 }
 
 /* Radar flash */
@@ -198,16 +249,6 @@ Sprite_Weapon <- array(12, null);
 class SpriteWeapons {
     Weapon = null;
 }
-
-Hud_Window <- null;
-    
-Hud_Health_Bar <- GUIProgressBar(::VectorScreen( 100, 47 ), ::ScreenSize( 100, 15 ));
-Hud_Armour_Bar <- GUIProgressBar(::VectorScreen( 0, 47 ), ::ScreenSize( 100, 15 ));
-Inventory_Button <- GUIButton( ::VectorScreen( 60, 30 ), ::ScreenSize( 60, 0 ), "Inventory" );
-Hud_Bar_Box <- ::GUISprite("Hud Bar Box.png", ::VectorScreen( 0, 47 ));
-Health_Bar_Value <- ::GUILabel( ::VectorScreen( 140, 49 ), ::ScreenSize( 5, 5 ), FindLocalPlayer().Health.tostring() );
-Armour_Bar_Value <- ::GUILabel( ::VectorScreen( 40, 49 ), ::ScreenSize( 5, 5 ), FindLocalPlayer().Armour.tostring() );
-Hud_Timer_Box <- ::GUISprite("Timer Box.png", ::VectorScreen( 109, 420 ));
 
 function Load_Gui_Weapon_Window() 
 {
@@ -271,6 +312,7 @@ function Load_Gui_Weapon_Window()
 
 
     ::AddGUILayer( Hud_Window );
+    Player_Progress().ShowCustomRadar(true);
 }
 
 function onClientRender() {
