@@ -1,10 +1,17 @@
 
-// Noob Scripting by Motley
+/*
+  Updated, Return for:
+    Adding gui data from server side storage and sync over to client
+    Clean up GUI functions.
+    Correct any errors
+
+  Version: 0.01 Beta
+*/
 
 //----------------------------------------------------------
 
 /*
-     Load the script event
+     Load the script events
 */
 
 function onScriptLoad() {
@@ -51,159 +58,186 @@ class Player_Progress {
     But can be used for on/off methods
 */
     // Hud Related
-    Radar = false;
-    Clock = false;
+    Radar = true;
+    Clock = true;
 
-    Money = false;
-    Armour = false;
-    Health = false;
-    Weapon = false;
-    Wanted = false;
+    Money = true;
+    Armour = true;
+    Health = true;
+    Weapon = true;
+    Wanted = true;
     // Hud Related
 
     //Custom Hud
-	Hud_Window = null;
+    Hud_Window = null;
     
-	Hud_Health_Bar = null;
-	Hud_Armour_Bar = null;
-	Inventory_Button = null;
-	Hud_Bar_Box = null;
-	Health_Bar_Value = null;
-	Armour_Bar_Value = null;
-	Hud_Timer_Box = null;
+    Hud_Health_Bar = null;
+    Hud_Armour_Bar = null;
+    Inventory_Button = null;
+    Hud_Bar_Box = null;
+    Health_Bar_Value = null;
+    Armour_Bar_Value = null;
+    Hud_Timer_Box = null;
     //Custom Hud
 
+//----------------------------------------------------------
     function Set_Radar(bool) {
         
-      if (bool == true ) {
-        Radar = true;
-        ::SetHUDItemEnabled( ::HUD_RADAR, Radar)
-      }
-      else {
-        Radar = false;
-        ::SetHUDItemEnabled( ::HUD_RADAR, Radar)
-      }
-    }
-     
-    function Set_Armour(bool) {
-        
-      if (bool == true ) {
-        Armour = true;
-        ::SetHUDItemEnabled( ::HUD_ARMOUR, Armour)
-      }
-      else {
-        Armour = false;
-        ::SetHUDItemEnabled( ::HUD_ARMOUR, Armour)
-      }  
-    }
-
-    function Set_Health(bool) {
-      if (bool == true ) {
-        Health = true;
-        ::SetHUDItemEnabled( ::HUD_HEALTH, Health)
-      }
-      else {
-        Health = false;
-        ::SetHUDItemEnabled( ::HUD_HEALTH, Health)
-      }  
+      Radar = bool;
+      ::SetHUDItemEnabled( ::HUD_RADAR, Radar)
     }
     
-    function Set_Money(bool) {
-      
-      if (bool == true ) {
-        Money = true;
-        ::SetHUDItemEnabled( ::HUD_MONEY, Money)
-      }
-      else {
-        Money = false;
-        ::SetHUDItemEnabled( ::HUD_MONEY, Money)
-      }  
+    function Get_Radar() {
+      return Radar;
     }
-     
-    function Set_Wanted(bool) {
+//----------------------------------------------------------
+
+    function Set_Armour(bool) {
         
-      if (bool == true ) {
-        Wanted = true;
-        ::SetHUDItemEnabled( ::HUD_WANTED, Wanted)
-      }
-      else {
-        Wanted = false;
-        ::SetHUDItemEnabled( ::HUD_WANTED, Wanted)
-      }  
-    }
-     
-    function Set_Weapon(bool) {
-        
-      if (bool == true ) {
-        Weapon = true;
-        ::SetHUDItemEnabled( ::HUD_WEAPON, Weapon)
-      }
-      else {
-        Weapon = false;
-        ::SetHUDItemEnabled( ::HUD_WEAPON, Weapon)
-      }  
-    }
-     
-    function Set_Clock(bool) {
-        
-      if (bool == true ) {
-        Clock = true;
-        ::SetHUDItemEnabled( ::HUD_CLOCK, Clock)
-      }
-      else {
-        Clock = false;
-        ::SetHUDItemEnabled( ::HUD_CLOCK, Clock)
-      }  
+      Armour = bool;
+      ::SetHUDItemEnabled( ::HUD_ARMOUR, Armour)
     }
 	
-	function ShowCustomRadar(bool) {
-      if (bool == true ) {
-	    Hud_Health_Bar = GUIProgressBar(::VectorScreen( 100, 47 ), ::ScreenSize( 100, 15 ));
-        Hud_Armour_Bar = GUIProgressBar(::VectorScreen( 0, 47 ), ::ScreenSize( 100, 15 ));
-        Inventory_Button = GUIButton( ::VectorScreen( 60, 30 ), ::ScreenSize( 60, 0 ), "Inventory" );
-        Hud_Bar_Box = ::GUISprite("Hud Bar Box.png", ::VectorScreen( 0, 47 ));
-        Health_Bar_Value = ::GUILabel( ::VectorScreen( 140, 49 ), ::ScreenSize( 5, 5 ), FindLocalPlayer().Health.tostring() );
-        Armour_Bar_Value = ::GUILabel( ::VectorScreen( 40, 49 ), ::ScreenSize( 5, 5 ), FindLocalPlayer().Armour.tostring() );
-        Hud_Timer_Box = ::GUISprite("Timer Box.png", ::VectorScreen( 109, 420 ));
-        Hud_Health_Bar.MaxValue = 100;
-        Hud_Health_Bar.EndColour = Colour( 0, 255, 0 );
-        Hud_Health_Bar.StartColour = Colour( 250, 20, 20 );
-        Hud_Health_Bar.Alpha = 255;
-        Hud_Health_Bar.Value = 100;
-        Hud_Health_Bar.Thickness = 2;
-        Hud_Health_Bar.Visible = true;
+    function Get_Armour() {
+      return Armour;
+    }
+//----------------------------------------------------------
+    function Set_Health(bool) {
+      Health = bool;
+      ::SetHUDItemEnabled( ::HUD_HEALTH, Health)
+    }
+	
+    function Get_Health() {
+      return Health;
+    }
+//----------------------------------------------------------
+    function Set_Money(bool) {
+      
+      Money = bool;
+      ::SetHUDItemEnabled( ::HUD_MONEY, Money)
+    }
+    function Get_Money() {
+      return Money;
+    }
+//----------------------------------------------------------
+    function Set_Wanted(bool) {
+        
+      Wanted = bool;
+      ::SetHUDItemEnabled( ::HUD_WANTED, Wanted)
+    }
+	function Get_Wanted() {
+      return Wanted;
+	}     
+//----------------------------------------------------------
+    function Set_Weapon(bool) {
+        
+      Weapon = bool;
+      ::SetHUDItemEnabled( ::HUD_WEAPON, Weapon)
+    }
+    function Get_Weapon() {
+      return Weapon;
+    }     
+//----------------------------------------------------------
+    function Set_Clock(bool) {
+        
+      Clock = bool;
+      ::SetHUDItemEnabled( ::HUD_CLOCK, Clock)
+    }
+    function Get_Clock() {
+      return Clock;
+    }     
+//----------------------------------------------------------
+    function InstallCustomHud() {
+	  
+      //Hud_Window = ::GUIWindow( ::VectorScreen(::ScreenWidth/1 - 200, ::ScreenHeight/1-180), ScreenSize(ceil(ScreenWidth/2-445),ceil(ScreenHeight/2-465)), "Personal Scoreboard" );
+      Hud_Window = ::GUIWindow( ::VectorScreen(::ScreenWidth/1 - 200, ::ScreenHeight/299), ::ScreenSize( 199, 45 ), "Personal Scoreboard" );
+      Hud_Window.Titlebar = false;
+      Hud_Window.Moveable = true;
+      Hud_Window.Colour = ::Colour( 0, 0, 0 );
+      Hud_Window.Alpha = 123;
+      Hud_Window.Visible = true;
+      Hud_Window.Transparent = true;
 
-        Hud_Armour_Bar.MaxValue = 100;
-        Hud_Armour_Bar.EndColour = Colour(128, 128, 128);
-        Hud_Armour_Bar.StartColour = Colour(0, 0, 0);
-        Hud_Armour_Bar.Alpha = 255;
-        Hud_Armour_Bar.Value = 100;
-        Hud_Armour_Bar.Thickness = 2;
-        Hud_Armour_Bar.Visible = true;
+      Hud_Health_Bar = GUIProgressBar(::VectorScreen( 100, 47 ), ::ScreenSize( 100, 15 ));
+      Hud_Health_Bar.MaxValue = 100;
+      Hud_Health_Bar.EndColour = Colour( 0, 255, 0 );
+      Hud_Health_Bar.StartColour = Colour( 250, 20, 20 );
+      Hud_Health_Bar.Alpha = 255;
+      Hud_Health_Bar.Value = 100;
+      Hud_Health_Bar.Thickness = 2;
+      Hud_Health_Bar.Visible = true;
 
-        Health_Bar_Value.TextColour = ::Colour( 255, 255, 255 );
-        Health_Bar_Value.FontSize = 8;    
+        
+      Hud_Armour_Bar = GUIProgressBar(::VectorScreen( 0, 47 ), ::ScreenSize( 100, 15 ));
+      Hud_Armour_Bar.MaxValue = 100;
+      Hud_Armour_Bar.EndColour = Colour(128, 128, 128);
+      Hud_Armour_Bar.StartColour = Colour(0, 0, 0);
+      Hud_Armour_Bar.Alpha = 255;
+      Hud_Armour_Bar.Value = 100;
+      Hud_Armour_Bar.Thickness = 2;
+      Hud_Armour_Bar.Visible = true;
 
-        Armour_Bar_Value .TextColour = ::Colour( 255, 255, 255 );
-        Armour_Bar_Value.FontSize = 8;
+      Health_Bar_Value.TextColour = ::Colour( 255, 255, 255 );
+      Health_Bar_Value.FontSize = 8;    
 
-        Hud_Timer_Box.Alpha = 220;
-	  }
-	  else {
-        Hud_Health_Bar.Visible = false;
-        Hud_Armour_Bar.Visible = false;
-        Inventory_Button.Visible = false;
-        Hud_Bar_Box.Visible = false;
-        Health_Bar_Value.Visible = false;
-        Armour_Bar_Value.Visible = false;
-        Hud_Timer_Box.Visible = false;
-      }
+      Armour_Bar_Value = ::GUILabel( ::VectorScreen( 40, 49 ), ::ScreenSize( 5, 5 ), FindLocalPlayer().Armour.tostring() );
+      Armour_Bar_Value .TextColour = ::Colour( 255, 255, 255 );
+      Armour_Bar_Value.FontSize = 8;
+
+      Inventory_Button = GUIButton( ::VectorScreen( 60, 30 ), ::ScreenSize( 60, 0 ), "Inventory" );
+      Hud_Bar_Box = ::GUISprite("Hud Bar Box.png", ::VectorScreen( 0, 47 ));
+      Health_Bar_Value = ::GUILabel( ::VectorScreen( 140, 49 ), ::ScreenSize( 5, 5 ), FindLocalPlayer().Health.tostring() );
+      Hud_Timer_Box = ::GUISprite("Timer Box.png", ::VectorScreen( 109, 420 ));
+      Hud_Timer_Box.Alpha = 220;
+
+      ::AddGUILayer( Hud_Window );
+		
+      // Add the Health Bar to the Hud
+      Hud_Window.AddChild( Hud_Health_Bar );
+    
+      // Add the Armour Bar to the Hud
+      Hud_Window.AddChild( Hud_Armour_Bar );
+
+      // Add the Health Bar value to the Hud
+      Hud_Window.AddChild( Health_Bar_Value );
+    
+      // Add the Armour Bar value to the Hud
+      Hud_Window.AddChild( Armour_Bar_Value );
+
+      // Add the Inventory to the Hud
+      Hud_Window.AddChild( Inventory_Button );
+    
+      // Add the GUI bar box to the Hud
+      Hud_Window.AddChild(Hud_Bar_Box);
+    
+      // Add the timer box to the Hud
+      Hud_Window.AddChild(Hud_Timer_Box);
+
+      // Add the Timer text to the Hud gui
+      Hud_Window.AddChild( Mission_Timer_Text );
+
+	}
+    function CustomRadar(bool) {
+      Hud_Window.Visible = bool;
+      Hud_Health_Bar.Visible = bool;
+      Hud_Armour_Bar.Visible = bool;
+      Inventory_Button.Visible = bool;
+      Hud_Bar_Box.Visible = bool;
+      Health_Bar_Value.Visible = bool;
+      Armour_Bar_Value.Visible = bool;
+      Hud_Timer_Box.Visible = bool;
+      Mission_Timer_Text.Visible = bool;
     }
 }
 
 //----------------------------------------------------------
 
 function onDebugScriptLoad() {
+  // In these functions we can finally detect if part of the hud is displayed. In part of the script it is set to show no mater what when the join event is triggered
+	
+  //Update this for full detection
+  
+  //if (Player_Progress().Get_Radar()) 
   Player_Progress().Set_Radar(false);
   Player_Progress().Set_Armour(false);
   Player_Progress().Set_Health(false);
@@ -213,7 +247,7 @@ function onDebugScriptLoad() {
   Player_Progress().Set_Clock(false);
 
   Load_Mission_GUI();
-  Load_Gui_Weapon_Window(); 
+  Player_Progress().InstallCustomHud();
   Load_Gui_Weapon_Sprites();
    
   return 1;
@@ -250,73 +284,8 @@ class SpriteWeapons {
     Weapon = null;
 }
 
-function Load_Gui_Weapon_Window() 
-{
-    //Hud_Window = ::GUIWindow( ::VectorScreen(::ScreenWidth/1 - 200, ::ScreenHeight/1-180), ScreenSize(ceil(ScreenWidth/2-445),ceil(ScreenHeight/2-465)), "Personal Scoreboard" );
-    Hud_Window = ::GUIWindow( ::VectorScreen(::ScreenWidth/1 - 200, ::ScreenHeight/299), ::ScreenSize( 199, 45 ), "Personal Scoreboard" );
-    Hud_Window.Titlebar = false;
-    Hud_Window.Moveable = true;
-    Hud_Window.Colour = ::Colour( 0, 0, 0 );
-    Hud_Window.Alpha = 123;
-    Hud_Window.Visible = true;
-    Hud_Window.Transparent = true;
-    
-    // Add the Health Bar to the Hud
-    Hud_Window.AddChild( Hud_Health_Bar );
-    
-    // Add the Armour Bar to the Hud
-    Hud_Window.AddChild( Hud_Armour_Bar );
-
-    // Add the Health Bar value to the Hud
-    Hud_Window.AddChild( Health_Bar_Value );
-    
-    // Add the Armour Bar value to the Hud
-    Hud_Window.AddChild( Armour_Bar_Value );
-
-    // Add the Inventory to the Hud
-    Hud_Window.AddChild( Inventory_Button );
-    
-    // Add the GUI bar box to the Hud
-    Hud_Window.AddChild(Hud_Bar_Box);
-    
-    // Add the timer box to the Hud
-    Hud_Window.AddChild(Hud_Timer_Box);
-
-    // Add the Timer text to the Hud gui
-    Hud_Window.AddChild( Mission_Timer_Text );
-
-
-    Hud_Health_Bar.MaxValue = 100;
-    Hud_Health_Bar.EndColour = Colour( 0, 255, 0 );
-    Hud_Health_Bar.StartColour = Colour( 250, 20, 20 );
-    Hud_Health_Bar.Alpha = 255;
-    Hud_Health_Bar.Value = 100;
-    Hud_Health_Bar.Thickness = 2;
-    Hud_Health_Bar.Visible = true;
-
-    Hud_Armour_Bar.MaxValue = 100;
-    Hud_Armour_Bar.EndColour = Colour(128, 128, 128);
-    Hud_Armour_Bar.StartColour = Colour(0, 0, 0);
-    Hud_Armour_Bar.Alpha = 255;
-    Hud_Armour_Bar.Value = 100;
-    Hud_Armour_Bar.Thickness = 2;
-    Hud_Armour_Bar.Visible = true;
-
-    Health_Bar_Value.TextColour = ::Colour( 255, 255, 255 );
-    Health_Bar_Value.FontSize = 8;    
-
-    Armour_Bar_Value .TextColour = ::Colour( 255, 255, 255 );
-    Armour_Bar_Value.FontSize = 8;
-
-    Hud_Timer_Box.Alpha = 220;
-
-
-    ::AddGUILayer( Hud_Window );
-    Player_Progress().ShowCustomRadar(true);
-}
-
 function onClientRender() {
-    if (Hud_Health_Bar)
+    if (Player_Progress().Hud_Health_Bar)
     {
         Hud_Health_Bar.Value = FindLocalPlayer().Health;
         Health_Bar_Value.Text = FindLocalPlayer().Health.tostring();
@@ -324,10 +293,10 @@ function onClientRender() {
         /*if (FindLocalPlayer().Health == 0) Hud_Health_Bar.Visible = false;
         else Hud_Health_Bar.Visible = true;*/
     }
-    if (Hud_Armour_Bar)
+    if (Player_Progress().Hud_Armour_Bar)
     {
-        Hud_Armour_Bar.Value = FindLocalPlayer().Armour;
-        Armour_Bar_Value.Text = FindLocalPlayer().Armour.tostring();
+        Player_Progress().Hud_Armour_Bar.Value = FindLocalPlayer().Armour;
+        Player_Progress().Armour_Bar_Value.Text = FindLocalPlayer().Armour.tostring();
         //Hud_Armour_Text.Text = FindLocalPlayer().Armour.tostring();
         /*if (FindLocalPlayer().Armour == 0) Hud_Armour_Bar.Visible = false;
         else Hud_Armour_Bar.Visible = true;*/
@@ -373,7 +342,14 @@ Okay once upon a time I changed this to render from the server so it could not
 get stollen. All data was server side and the server would manipulate the entire client valuse to 
 anything I wanted for gui etc. All data was set to be stored server side in a simple ini I was writting in squirrel
 
-It's randomly displayed in plan view for now. Please see the older functions at the botton*/
+It's randomly displayed in plan view for now. Please see the older functions at the botton
+
+############################################################################################
+## Additional edit 10/09/2021                                                             ## 
+## Reimpliment storing everything server side. Update this section once that is completed ##
+## Ini I/O in squirrel                                                                    ##
+############################################################################################
+*/
 Top_Label <- null; // Our first label 
 Top_Label_VectorScreen_1 <- 10; // Our vector screen
 Top_Label_VectorScreen_2 <- 5; // Our vector screen
